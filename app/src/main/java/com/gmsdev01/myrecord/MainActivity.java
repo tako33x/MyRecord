@@ -1,9 +1,6 @@
 package com.gmsdev01.myrecord;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         mStartRecBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                startService(new Intent(getBaseContext(), RecService.class));
+                Intent startIntent=new Intent(getBaseContext(), RecService.class);
+                startService(startIntent);
 
             }
         });
@@ -38,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         mStopRecBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stopService(new Intent(getBaseContext(), RecService.class));
+                Intent stopIntent=new Intent(getBaseContext(), RecService.class);
+                startService(stopIntent);
 
             }
         });
