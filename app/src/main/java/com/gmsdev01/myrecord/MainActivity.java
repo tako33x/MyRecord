@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent stopIntent=new Intent(getBaseContext(), RecService.class);
-                startService(stopIntent);
+                stopService(stopIntent);
 
             }
         });
