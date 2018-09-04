@@ -1,6 +1,8 @@
 package com.gmsdev01.myrecord;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         mStartRecBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startIntent=new Intent(getBaseContext(), RecService.class);
+                Intent startIntent = new Intent(getBaseContext(), RecService.class);
                 startService(startIntent);
 
             }
@@ -35,21 +37,23 @@ public class MainActivity extends AppCompatActivity {
         mStopRecBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent stopIntent=new Intent(getBaseContext(), RecService.class);
-                stopService(stopIntent);
+                //Intent stopIntent=new Intent(getBaseContext(), RecService.class);
+                //stopService(stopIntent);
+                Handler h = new RecService().mHandler;
+                Message msg = Message.obtain();
+                msg.arg1 = 2;
+                h.sendMessage(msg);
 
             }
         });
 
-        if(isRec){
+        if (isRec) {
             mInfoLabel.setText("Doing the job...");
         } else {
             mInfoLabel.setText("Ready");
         }
 
     }
-
-
 
 
 }

@@ -2,14 +2,17 @@ package com.gmsdev01.myrecord;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
 public class RecService extends Service {
 
     private static final String LOG_TAG = "Service";
-
+    public Handler mHandler;
+    private int count = 1;
 
     public RecService() {
     }
@@ -18,6 +21,11 @@ public class RecService extends Service {
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
         return null;
+    }
+
+    @Override
+    public void onCreate() {
+
     }
 
     @Override
@@ -42,12 +50,22 @@ public class RecService extends Service {
         @Override
         public void run() {
             Log.v(LOG_TAG, Thread.currentThread().getId() + ": Thread started ");
-            for (int i = 0; i < 10; i++) {
-                Log.v(LOG_TAG, Thread.currentThread().getId() + ": " + Integer.toString(i));
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+
+            mHandler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    count = msg.arg1;
+                }
+            };
+
+            if(count==1){
+                for (int i = 0; i < 10; i++) {
+                    Log.v(LOG_TAG, Thread.currentThread().getId() + ": " + Integer.toString(i));
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             Log.v(LOG_TAG, Thread.currentThread().getId() + ": Thread finished ");
